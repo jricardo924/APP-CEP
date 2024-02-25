@@ -1,22 +1,14 @@
-# Big Game Survey 
+# APP-CEP
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/jricardo924/APP-CEP/blob/main/LICENSE) 
 
 # Sobre o projeto
 
 App-Cep é uma aplicação desenvolvida em Delphi Tokyo para demonstrar metodos e tecnicas para seleção de emprego em uma grande empresa na area de Software.
 
-
-Big Game Survey é uma aplicação full stack web e mobile construída durante a 1ª edição da **Semana DevSuperior** (#sds1), evento organizado pela [DevSuperior](https://devsuperior.com "Site da DevSuperior").
-
-A aplicação consiste em uma pesquisa de preferência de games, onde os dados são coletados no app mobile, e depois são listados no app web, que também apresenta um dashboard com gráficos baseados nestes dados.
+A aplicação opera com base em requisições por CEP ou endereço para um Web Service público (https://viacep.com.br). Após enviar a solicitação, o serviço retorna um JSON, que é convertido em uma string e enviado para uma fila no RabbitMQ. Este sistema gerencia a ordem de processamento e disponibiliza os dados em outra fila, também no RabbitMQ. Após a liberação, os dados são armazenados no banco de dados MongoDB e a consulta é atualizada para o aplicativo de consulta.
 
 ## Layout mobile
-![Mobile 1](https://github.com/acenelio/assets/raw/main/sds1/mobile1.png) ![Mobile 2](https://github.com/acenelio/assets/raw/main/sds1/mobile2.png)
-
-## Layout web
-![Web 1](https://github.com/acenelio/assets/raw/main/sds1/web1.png)
-
-![Web 2](https://github.com/acenelio/assets/raw/main/sds1/web2.png)
+![Mobile 1](https://github.com/jricardo924/image/blob/main/Form_Principal.png) 
 
 ## Modelo conceitual
 ![Modelo Conceitual](https://github.com/acenelio/assets/raw/main/sds1/modelo-conceitual.png)
