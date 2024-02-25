@@ -19,31 +19,29 @@ A aplicação opera com base em requisições por CEP ou endereço para um Web S
 - Classe StompClient (Gerencia filas RabbitMQ)
 - Class Component TIdHTTP (Requests HTTP) 
 - Class Component TJSONObject (Manipulação de Json)
-## Front end
-- HTML / CSS / JS / TypeScript
-- ReactJS
-- React Native
-- Apex Charts
-- Expo
-## Implantação em produção
-- Back end: Heroku
-- Front end web: Netlify
-- Banco de dados: Postgresql
+  
+## RabbitMQ
+- RabbitMQ Server 3.12.10
+- Erlang OTP 26.2.1 (14.2.1)
+  
+## MongoDB
+- MongoDB 5.0.25 2008R2Plus SSL (64 bit)
+- MongoDB Compass
 
 # Como executar o projeto
 
-## Back end
-Pré-requisitos: Java 11
+## Aplicação
+Pré-requisitos: Delphi Tokyo
 
 ```bash
 # clonar repositório
-git clone https://github.com/devsuperior/sds1-wmazoni
+git clone https://github.com/jricardo924/APP-CEP
 
-# entrar na pasta do projeto back end
-cd backend
+# entrar na pasta do projeto
+cd C:\Teste_Softplan\Sistema CEP WS
 
 # executar o projeto
-./mvnw spring-boot:run
+Abrir executavel na pasta C:\Teste_Softplan\Sistema CEP WS\Win32\Debug
 ```
 
 ## Front end web
