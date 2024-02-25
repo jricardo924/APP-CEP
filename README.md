@@ -41,24 +41,10 @@ git clone https://github.com/jricardo924/APP-CEP
 cd C:\Teste_Softplan\Sistema CEP WS
 
 # executar o projeto
-Abrir executavel na pasta C:\Teste_Softplan\Sistema CEP WS\Win32\Debug
+Abrir executavel na pasta C:\Teste_Softplan\Sistema CEP WS\Win32\Debug\App_Consulta_Cep_WS.exe
 ```
 
-## Front end web
-Pré-requisitos: npm / yarn
 
-```bash
-# clonar repositório
-git clone https://github.com/devsuperior/sds1-wmazoni
-
-# entrar na pasta do projeto front end web
-cd front-web
-
-# instalar dependências
-yarn install
-
-# executar o projeto
-yarn start
 ```
 
 # Autor
