@@ -36,10 +36,6 @@ A aplicação opera com base em requisições por CEP ou endereço para um Web S
 
 Aqui damos alguns exemplos dos metodos utilizado e aplicados no codigo.
 
-## Criação de Componentes
-
-- Componente EdtFocus criado para trocar a cor quando do campo, quando o ponteiro esta no Edit.  
-
 ## Clean Code
 
 - O código está bem organizado e estruturado, com identação adequada e nomes de variáveis e métodos significativos.
@@ -84,6 +80,22 @@ A função pGravaDadosMongoDb demonstra a desserialização de um objeto JSON pa
 - Padrão Strategy:O método fConsultaCepMongo na classe TConsulta_Cep_C1 pode ser considerado uma aplicação do padrão Strategy. Ele aceita um parâmetro TipoConsulta do tipo TTipoConsulta, que determina o comportamento específico a ser executado durante a consulta ao MongoDB. Dependendo do valor desse parâmetro, o método adapta sua estratégia de consulta (por endereço ou por código).
 
 - Padrão MVC (Model-View-Controller):O código segue uma estrutura MVC implícita, onde a classe TConsulta_Cep_L1 atua como o controlador (Controller) responsável por gerenciar a lógica de negócios relacionada à consulta de CEP. O TConsulta_Cep_F1 é a visão (View) que exibe os registros, e a classe: TConsulta_Cep_C1 e o modelo (Model) consiste nos dados de consulta e no acesso ao banco de dados MongoDB.
+
+# Criação de Componentes
+
+## Componente EdtFocus
+
+O EdtFocus é um componente Delphi que fornece uma maneira simples de alterar a cor de um campo de edição (TEdit) quando ele ganha foco. Ele é útil para realçar visualmente campos de entrada em formulários.  
+
+## Funcionalidades
+
+Mudança de Cor: O componente permite especificar uma cor personalizada para o campo de edição quando ele ganha foco.
+Restauração da Cor Original: Quando o campo perde o foco, a cor retorna ao valor padrão.
+
+## Como Usar
+
+Uso no Formulário: No Tool Pallete de formulários, localize o componente MyComponents >> TEdtFocus na paleta de componentes.
+Defina a propriedade MudarColor para especificar a cor desejada quando o campo ganha foco.
 
 # Como executar o projeto
 
