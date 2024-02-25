@@ -27,22 +27,6 @@ A aplicação opera com base em requisições por CEP ou endereço para um Web S
 - MongoDB 5.0.25 2008R2Plus SSL (64 bit)
 - MongoDB Compass
 
-# Como executar o projeto
-
-## Aplicação
-Pré-requisitos: Delphi Tokyo
-
-```bash
-# clonar repositório
-git clone https://github.com/jricardo924/APP-CEP
-
-# entrar na pasta do projeto
-cd C:\Teste_Softplan\Sistema CEP WS
-
-# executar o projeto
-Abrir executavel na pasta C:\Teste_Softplan\Sistema CEP WS\Win32\Debug\App_Consulta_Cep_WS.exe
-```
-
 # Arquitetura utilizada
 
  A arquitetura utilizada foi Model-View-Controller (MVC). Todas as classes com nomenclatura que terminam com "_C1" são classes de Model (Exemplo: Consulta_Cep_C1), "_F1" são classes de View (Exemplo: Consulta_Cep_F1) e "_L1" são classes de Controller (Exemplo: Consulta_Cep_L1).
@@ -74,7 +58,6 @@ Comentários claros foram incluídos para explicar o propósito de cada seção 
 
 - Dependency Inversion Principle:A classe TConsulta_Cep_C1 depende de abstrações (interfaces) em vez de implementações concretas. Por exemplo, ela depende de TFDConnection e TFDMongoQuery, que são abstrações para conexão e consulta ao banco de dados, permitindo a troca fácil de implementações sem alterar o código cliente.
 
-
 ## POO
 
 - Encapsulamento: O código faz uso extensivo de propriedades (getters e setters) para encapsular o acesso aos atributos privados da classe TConsulta_Cep_C1, como FCep, FLogradouro, etc. Isso ajuda a controlar o acesso aos dados e protegê-los de modificações não autorizadas.
@@ -101,6 +84,29 @@ A função pGravaDadosMongoDb demonstra a desserialização de um objeto JSON pa
 - Padrão Strategy:O método fConsultaCepMongo na classe TConsulta_Cep_C1 pode ser considerado uma aplicação do padrão Strategy. Ele aceita um parâmetro TipoConsulta do tipo TTipoConsulta, que determina o comportamento específico a ser executado durante a consulta ao MongoDB. Dependendo do valor desse parâmetro, o método adapta sua estratégia de consulta (por endereço ou por código).
 
 - Padrão MVC (Model-View-Controller):O código segue uma estrutura MVC implícita, onde a classe TConsulta_Cep_L1 atua como o controlador (Controller) responsável por gerenciar a lógica de negócios relacionada à consulta de CEP. O TConsulta_Cep_F1 é a visão (View) que exibe os registros, e a classe: TConsulta_Cep_C1 e o modelo (Model) consiste nos dados de consulta e no acesso ao banco de dados MongoDB.
+
+# Como executar o projeto
+
+## Aplicação
+Pré-requisitos: Delphi Tokyo
+
+```bash
+# clonar repositório
+git clone https://github.com/jricardo924/APP-CEP
+
+# entrar na pasta do projeto
+cd C:\Teste_Softplan\Sistema CEP WS
+
+# executar o projeto
+Abrir executavel na pasta C:\Teste_Softplan\Sistema CEP WS\Win32\Debug\App_Consulta_Cep_WS.exe
+
+# Instalação de componente EdtFocus
+Abrir o Project >> arquivo: C:\Teste_Softplan\Sistema CEP WS\Novo_Componente\EditFocus\CEditFocus.dproj
+Compilar o componente
+Instalar o componente
+```
+
+
 
 # Autor
 
