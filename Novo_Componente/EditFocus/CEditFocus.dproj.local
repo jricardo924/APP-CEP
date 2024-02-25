@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2022/03/22 11:01:18.000.589,=rtl.dcp</Transaction>
+    <Transaction>2024/02/25 18:15:26.000.507,=rtl.dcp</Transaction>
+    <Transaction>2024/02/25 18:41:33.231,=rtl.dcp</Transaction>
+    <Transaction>2024/02/25 18:52:00.775,C:\Teste_Softplan\Sistema CEP WS\Novo_Componente\EditFocus\CEditFocus.dproj=C:\Users\ricardo.soares\OneDrive - SPADER DISTRIBUIDORA DE ALIMENTOS L\Documentos\Embarcadero\Studio\Projects\Package1.dproj</Transaction>
+    <Transaction>2024/02/25 18:52:49.444,=C:\Teste_Softplan\Sistema CEP WS\Novo_Componente\EditFocus\Source\EdtFocus.pas</Transaction>
+    <Transaction>2024/02/25 18:52:49.509,=vcl.dcp</Transaction>
+  </Transactions>
+</BorlandProject>

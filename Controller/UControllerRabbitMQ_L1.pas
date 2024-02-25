@@ -1,0 +1,180 @@
+unit UControllerRabbitMQ_L1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, {RabbitMQ.Client,} Vcl.StdCtrls, StompClient,
+  Vcl.ExtCtrls, System.JSON;
+
+type
+  TUControllerRabbitMQ_L1 = class
+
+  private
+     Const MinhaFila = '/queue/Cep';
+           TEMPO_LEITURA = 900;
+    function GetMsgRecebida: String;
+    function GetMsgLogProcessamento: String;
+    var
+     FStompClient: IStompClient;
+     FClient: IStompClient;
+     FStompFrame: IStompFrame;
+     LStop: boolean;
+     FMsgRecebida: String;
+     FMsgLogProcessamento: String;
+
+  public
+    //Construtores
+    constructor Create;
+    destructor Destroy; override;
+    //Procedures
+    procedure VerificaMensagens;
+    procedure ConectandoRabbitMQ;
+    procedure EnviarMsgRabbitMQ(Msg: String);
+    procedure BeforeSendFrame(AFrame: IStompFrame);
+    //Functions
+    function ReceberMsgRabbitMQ: Boolean;
+
+
+    //Propets
+    property MsgRecebida: String read GetMsgRecebida;
+    property MsgLogProcessamento: String read GetMsgLogProcessamento;
+  end;
+
+implementation
+
+{ TController }
+
+procedure TUControllerRabbitMQ_L1.BeforeSendFrame(AFrame: IStompFrame);
+begin
+   FMsgLogProcessamento := StringReplace(AFrame.Output,#10, sLineBreak,[rfReplaceAll]);
+end;
+
+procedure TUControllerRabbitMQ_L1.ConectandoRabbitMQ;
+begin
+   FClient := StompUtils.StompClient;
+   try
+      FClient.Connect;
+   Except
+      on e: Exception do
+      begin
+         FMsgLogProcessamento := FMsgLogProcessamento + 'Cannot connect to Apollo server. Run the server and restart the application';
+      end;
+   end;
+   FClient.SetOnBeforeSendFrame(BeforeSendFrame);
+   FStompFrame := StompUtils.NewFrame();
+
+   FClient := StompUtils.StompClient.SetHeartBeat(1000, 1000)
+     .SetAcceptVersion(TStompAcceptProtocol.Ver_1_1).Connect;
+
+   FClient.Subscribe(MinhaFila, TAckMode.amClient);
+
+   try
+     try
+       //Responsavel pelos envios para a fila
+       FStompClient := StompUtils.StompClient;
+       FStompClient.SetOnBeforeSendFrame(BeforeSendFrame);
+     except
+       on e: Exception do
+        FMsgLogProcessamento := FMsgLogProcessamento + 'Erro ao Conectar: '+e.Message;
+     end;
+   finally
+       FMsgLogProcessamento := FMsgLogProcessamento +'Conectou';
+   end;
+
+end;
+
+constructor TUControllerRabbitMQ_L1.Create;
+begin
+   //
+
+end;
+
+destructor TUControllerRabbitMQ_L1.Destroy;
+begin
+  inherited;
+end;
+
+procedure TUControllerRabbitMQ_L1.EnviarMsgRabbitMQ(Msg: String);
+begin
+   FStompClient.Connect;
+   try
+      try
+        FStompClient.Send(MinhaFila, Msg);
+      except
+       on e: Exception do
+       begin
+         FMsgLogProcessamento := FMsgLogProcessamento +'ERROR: '+e.Message;
+       end;
+      end;
+   finally
+       FStompClient.Disconnect;
+   end;
+end;
+
+
+function TUControllerRabbitMQ_L1.GetMsgLogProcessamento: String;
+begin
+   Result := FMsgLogProcessamento;
+end;
+
+function TUControllerRabbitMQ_L1.GetMsgRecebida: String;
+begin
+   Result := FMsgRecebida;
+end;
+
+
+function TUControllerRabbitMQ_L1.ReceberMsgRabbitMQ: Boolean;
+Var
+   lMessage: String;
+begin
+   if FClient.Receive(FStompFrame, 900-10) then
+   begin
+      lMessage := FStompFrame.Body;
+      FMsgLogProcessamento := 'Recebendo mensagem...';
+      FMsgLogProcessamento := FMsgLogProcessamento + lMessage;
+
+      FMsgLogProcessamento := FMsgLogProcessamento + 'Informado o broker que a mensagem' +
+                              FStompFrame.MessageID + ' foi processada' ;
+
+      FClient.Ack(FStompFrame.MessageID);
+
+   end;
+end;
+
+
+procedure TUControllerRabbitMQ_L1.VerificaMensagens;
+var
+  lMessage: string;
+begin
+    while True do
+    begin
+      if LStop then
+        break;
+      try
+
+        if FClient.Receive(FStompFrame, TEMPO_LEITURA-10) then
+        begin
+           FMsgRecebida := FStompFrame.GetBody;
+           FMsgLogProcessamento :=  'Recebendo mensagem...';
+
+           FMsgLogProcessamento := FMsgLogProcessamento + lMessage;
+
+           FMsgLogProcessamento := 'Informando o broker que a mensagem ' +
+             FStompFrame.MessageID + ' foi processada';
+
+           FClient.Ack(FStompFrame.MessageID);
+
+           if Trim(FMsgRecebida) <> '' then
+             LStop := True;
+
+        end;
+
+      finally
+        sleep(TEMPO_LEITURA);
+      end;
+    end;
+end;
+
+end.
+

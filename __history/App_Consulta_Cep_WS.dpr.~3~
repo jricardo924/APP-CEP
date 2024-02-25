@@ -1,0 +1,16 @@
+program App_Consulta_Cep_WS;
+
+uses
+  Vcl.Forms,
+  Frm_Consulta_Cep_F1 in 'Frm_Consulta_Cep_F1.pas' {Form_Consulta_Cep_F1},
+  Consulta_Cep_L1 in 'Consulta_Cep_L1.pas',
+  Consulta_Cep_C1 in 'Consulta_Cep_C1.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm_Consulta_Cep_F1, Form_Consulta_Cep_F1);
+  Application.Run;
+end.

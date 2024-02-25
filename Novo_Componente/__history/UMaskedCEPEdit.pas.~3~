@@ -1,0 +1,76 @@
+unit UMaskedCEPEdit;
+
+interface
+
+uses
+  System.Classes, Vcl.Controls, Vcl.StdCtrls;
+
+type
+  TMaskedCEPEdit = class(TEdit)
+  private
+    FMask: string;
+    procedure ApplyMask;
+  protected
+    procedure KeyPress(var Key: Char); override;
+  public
+    constructor Create(AOwner: TComponent); override;
+  published
+    property Mask: string read FMask write FMask;
+  end;
+
+procedure Register;
+
+implementation
+
+procedure Register;
+begin
+  RegisterComponents('Custom', [TMaskedCEPEdit]);
+end;
+
+constructor TMaskedCEPEdit.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  FMask := '#####-###'; // Máscara padrão para CEP
+end;
+
+procedure TMaskedCEPEdit.ApplyMask;
+var
+  UnmaskedText, MaskedText: string;
+  i, j: Integer;
+begin
+  UnmaskedText := Text;
+  MaskedText := '';
+
+  j := 1;
+  for i := 1 to Length(FMask) do
+  begin
+    if (j <= Length(UnmaskedText)) then
+    begin
+      if (FMask[i] = '#') then
+      begin
+        MaskedText := MaskedText + UnmaskedText[j];
+        Inc(j);
+      end
+      else
+        MaskedText := MaskedText + FMask[i];
+    end
+    else
+    begin
+      if (FMask[i] <> '#') then
+        MaskedText := MaskedText + FMask[i];
+    end;
+  end;
+
+  Text := MaskedText;
+end;
+
+procedure TMaskedCEPEdit.KeyPress(var Key: Char);
+begin
+  inherited KeyPress(Key);
+  ApplyMask;
+  // Suprimir a tecla para evitar que seja digitada no final do texto
+  Key := #0;
+end;
+
+end.
+
