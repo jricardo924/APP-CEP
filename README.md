@@ -44,8 +44,36 @@ cd C:\Teste_Softplan\Sistema CEP WS
 Abrir executavel na pasta C:\Teste_Softplan\Sistema CEP WS\Win32\Debug\App_Consulta_Cep_WS.exe
 ```
 
+# Metodologias e Técnicas Aplicadas
 
-```
+Aqui damos alguns exemplos dos metodos solicitado e trechos do codigo aplicado.
+
+## Clean Code
+
+- O código está bem organizado e estruturado, com identação adequada e nomes de variáveis e métodos significativos.
+Comentários claros foram incluídos para explicar o propósito de cada seção de código e o que cada método faz.
+- Formatação Consistente: O código segue uma formatação consistente, com uso adequado de espaçamento, indentação e quebras de linha, tornando-o mais legível e fácil de seguir.
+
+## SOLID
+
+- Single Responsibility Principle: Cada método da classe TConsulta_Cep_C1 tem uma responsabilidade única e clara, como obter dados, manipular conexões com o MongoDB, e realizar consultas. 
+- Open/Closed Principle:  O código pode ser estendido para adicionar novos tipos de consulta sem a necessidade de modificar as classes existentes.
+- Interface Segregation Principle: As interfaces públicas da classe são bem definidas e fornecem apenas os métodos necessários para interagir com ela.
+
+## POO
+
+A classe TConsulta_Cep_C1 encapsula o comportamento e os dados relacionados à consulta de CEPs, seguindo os princípios de encapsulamento e abstração.
+
+
+## Serialização e desserialização de objetos JSON
+
+A classe TConsulta_Cep_C1 possui métodos para gravar dados em um banco de dados MongoDB usando objetos JSON.
+A função pGravaDadosMongoDb demonstra a desserialização de um objeto JSON para extrair os dados e armazená-los no banco de dados.
+
+## Aplicação de Patterns
+
+Singleton: A classe TConsulta_Cep_C1 gerencia uma única conexão com o banco de dados MongoDB, garantindo que apenas uma instância dessa conexão seja criada.
+
 
 # Autor
 
