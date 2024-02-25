@@ -14,6 +14,7 @@ A aplicação opera com base em requisições por CEP ou endereço para um Web S
 # Tecnologias utilizadas
 ## Delphi
 - Delphi Tokyo
+- Criação de componente EdtFocus
 - Classe StompClient (Gerencia filas RabbitMQ)
 - Class Component TIdHTTP (Requests HTTP) 
 - Class Component TJSONObject (Manipulação de Json)
@@ -50,6 +51,10 @@ Abrir executavel na pasta C:\Teste_Softplan\Sistema CEP WS\Win32\Debug\App_Consu
 # Metodologias e Técnicas Aplicadas
 
 Aqui damos alguns exemplos dos metodos utilizado e aplicados no codigo.
+
+## Criação de Componentes
+
+- Componente EdtFocus criado para trocar a cor quando do campo, quando o ponteiro esta no Edit.  
 
 ## Clean Code
 
