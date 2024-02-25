@@ -56,14 +56,28 @@ Comentários claros foram incluídos para explicar o propósito de cada seção 
 
 ## SOLID
 
-- Single Responsibility Principle: Cada método da classe TConsulta_Cep_C1 tem uma responsabilidade única e clara, como obter dados, manipular conexões com o MongoDB, e realizar consultas. 
-- Open/Closed Principle:  O código pode ser estendido para adicionar novos tipos de consulta sem a necessidade de modificar as classes existentes.
-- Interface Segregation Principle: As interfaces públicas da classe são bem definidas e fornecem apenas os métodos necessários para interagir com ela.
+- Single Responsibility Principle: Cada método da classe TConsulta_Cep_C1 tem uma responsabilidade única e clara, como obter dados, manipular conexões com o MongoDB, e realizar consultas.
+   
+- Open/Closed Principle:  O código está aberto para extensão e fechado para modificação, pois novos tipos de consulta ou funcionalidades podem ser adicionados sem modificar o código existente. Por exemplo, é possível adicionar um novo tipo de consulta sem alterar o método fConsultaCepMongo.
+  
+- Interface Segregation Principle: As interfaces na classe TConsulta_Cep_C1 são coesas e específicas para os métodos que precisam ser expostos. Por exemplo, a interface pública fornece métodos para configurar a consulta de CEP, obter resultados e carregar dados, sem expor detalhes de implementação desnecessários.
+
+- Liskov Substitution Principle: As subclasses podem ser substituídas por suas classes base sem afetar o comportamento do programa. Embora não haja subclasses diretas neste código, a classe TConsulta_Cep_C1 pode ser estendida por meio de herança para adicionar novos comportamentos relacionados à consulta de CEPs.
+
+- Dependency Inversion Principle:A classe TConsulta_Cep_C1 depende de abstrações (interfaces) em vez de implementações concretas. Por exemplo, ela depende de TFDConnection e TFDMongoQuery, que são abstrações para conexão e consulta ao banco de dados, permitindo a troca fácil de implementações sem alterar o código cliente.
+
 
 ## POO
 
-A classe TConsulta_Cep_C1 encapsula o comportamento e os dados relacionados à consulta de CEPs, seguindo os princípios de encapsulamento e abstração.
+- Encapsulamento: O código faz uso extensivo de propriedades (getters e setters) para encapsular o acesso aos atributos privados da classe TConsulta_Cep_C1, como FCep, FLogradouro, etc. Isso ajuda a controlar o acesso aos dados e protegê-los de modificações não autorizadas.
 
+- Abstração: A classe TConsulta_Cep_C1 abstrai o conceito de consulta de CEP e encapsula seu comportamento em métodos e propriedades. Isso permite que os usuários da classe interajam com ela de forma simplificada, sem precisar conhecer os detalhes de implementação subjacentes.
+
+- Herança: Embora não seja explicitamente demonstrado no código fornecido, a classe TConsulta_Cep_C1 pode ser estendida por meio de herança para adicionar novos comportamentos ou personalizações relacionadas à consulta de CEPs. Por exemplo, poderia ser criada uma subclasse ConsultaCepEspecializada que herda de TConsulta_Cep_C1 e implementa funcionalidades adicionais.
+
+- Polimorfismo: O método fConsultaCepMongo na classe TConsulta_Cep_C1 utiliza polimorfismo ao aceitar um parâmetro do tipo TTipoConsulta, que pode assumir diferentes valores. Dependendo do valor passado, o método se comporta de maneira diferente, permitindo consultas de diferentes tipos de CEP (por endereço ou por código).
+
+- Reutilização de código: O código reutiliza componentes e classes fornecidos pelo ambiente de desenvolvimento, como TFDConnection e TFDMongoQuery, em vez de reinventar a roda. Isso promove a eficiência e reduz a duplicação de esforços.
 
 ## Serialização e desserialização de objetos JSON
 
@@ -72,8 +86,13 @@ A função pGravaDadosMongoDb demonstra a desserialização de um objeto JSON pa
 
 ## Aplicação de Patterns
 
-Singleton: A classe TConsulta_Cep_C1 gerencia uma única conexão com o banco de dados MongoDB, garantindo que apenas uma instância dessa conexão seja criada.
+- Padrão Singleton: a classe TConsulta_Cep_C1 possui um gerenciamento centralizado para componentes importantes, como a conexão com o banco de dados MongoDB (FConMongo) e a consulta ao banco de dados (FMongoQry). Isso garante que apenas uma instância desses componentes seja criada e compartilhada por toda a aplicação, promovendo a eficiência e a consistência.
 
+- Padrão Factory Method: A classe TConsulta_Cep_C1 atua como uma fábrica para criar consultas de CEP, encapsulando a lógica de criação e execução das consultas.
+
+- Padrão Strategy:O método fConsultaCepMongo na classe TConsulta_Cep_C1 pode ser considerado uma aplicação do padrão Strategy. Ele aceita um parâmetro TipoConsulta do tipo TTipoConsulta, que determina o comportamento específico a ser executado durante a consulta ao MongoDB. Dependendo do valor desse parâmetro, o método adapta sua estratégia de consulta (por endereço ou por código).
+
+- Padrão MVC (Model-View-Controller):O código segue uma estrutura MVC implícita, onde a classe TConsulta_Cep_L1 atua como o controlador (Controller) responsável por gerenciar a lógica de negócios relacionada à consulta de CEP. O TConsulta_Cep_F1 é a visão (View) que exibe os registros, e a classe: TConsulta_Cep_C1 e o modelo (Model) consiste nos dados de consulta e no acesso ao banco de dados MongoDB.
 
 # Autor
 
