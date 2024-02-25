@@ -14,11 +14,11 @@ A aplicação opera com base em requisições por CEP ou endereço para um Web S
 ![Modelo Conceitual](https://github.com/acenelio/assets/raw/main/sds1/modelo-conceitual.png)
 
 # Tecnologias utilizadas
-## Back end
-- Java
-- Spring Boot
-- JPA / Hibernate
-- Maven
+## Delphi
+- Delphi Tokyo
+- Classe StompClient (Gerencia filas RabbitMQ)
+- Class Component TIdHTTP (Requests HTTP) 
+- Class Component TJSONObject (Manipulação de Json)
 ## Front end
 - HTML / CSS / JS / TypeScript
 - ReactJS
