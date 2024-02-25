@@ -10,8 +10,6 @@ A aplicação opera com base em requisições por CEP ou endereço para um Web S
 ## Layout APP
 ![Mobile 1](https://github.com/jricardo924/image/blob/main/Form_Principal.png) 
 
-## Modelo conceitual
-![Modelo Conceitual](https://github.com/acenelio/assets/raw/main/sds1/modelo-conceitual.png)
 
 # Tecnologias utilizadas
 ## Delphi
@@ -44,9 +42,14 @@ cd C:\Teste_Softplan\Sistema CEP WS
 Abrir executavel na pasta C:\Teste_Softplan\Sistema CEP WS\Win32\Debug\App_Consulta_Cep_WS.exe
 ```
 
+# Arquitetura utilizada
+
+ A arquitetura utilizada foi Model-View-Controller (MVC). Todas as classes com nomenclatura que terminam com "_C1" são classes de Model (Exemplo: Consulta_Cep_C1), "_F1" são classes de View (Exemplo: Consulta_Cep_F1) e "_L1" são classes de Controller (Exemplo: Consulta_Cep_L1).
+
+
 # Metodologias e Técnicas Aplicadas
 
-Aqui damos alguns exemplos dos metodos solicitado e trechos do codigo aplicado.
+Aqui damos alguns exemplos dos metodos utilizado e aplicados no codigo.
 
 ## Clean Code
 
