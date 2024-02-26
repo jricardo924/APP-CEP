@@ -117,6 +117,10 @@ Abrir executavel na pasta C:\APP-CEP-main.zip\APP-CEP-main\Win32\Debug\App_Consu
 Abrir o Project >> arquivo: C:\APP-CEP-main.zip\APP-CEP-main\Novo_Componente\EditFocus\CEditFocus.dproj
 Compilar o componente
 Instalar o componente
+
+# MongoDB
+Ao gravar a primeira vez um registro no banco de dados será na base de dados local >> Collection: cadastroceps
+Caminha no mongo: local.cadastroceps
 ```
 
 
