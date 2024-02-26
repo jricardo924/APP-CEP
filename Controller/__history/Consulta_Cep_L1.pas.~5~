@@ -152,8 +152,16 @@ begin
 
       MmoLog.Lines.Add('Desserialização Json: ');
       RetornoJson := TJSONObject.ParseJSONValue(JsonString) as TJSONObject;
-      if not Assigned(RetornoJson) then
+
+      if Assigned(RetornoJson) then
+      begin
+        if RetornoJson.GetValue('erro').Value = 'true' then
+          raise Exception.Create('CEP inexistente!');
+      end
+      else
+      begin
         raise Exception.Create('Erro ao desserializar JSON');
+      end;
 
       MmoLog.Lines.Add(Response.DataString);
 
@@ -165,7 +173,7 @@ begin
     on E: Exception do
     begin
       // Trate a exceção aqui
-      raise Exception.Create('Ocorreu um erro de soquete: ' + E.Message);
+      raise Exception.Create('Ocorreu um erro: ' + E.Message);
     end;
   end;
 end;

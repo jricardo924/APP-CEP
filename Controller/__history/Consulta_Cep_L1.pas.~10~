@@ -129,44 +129,54 @@ begin
   IdHTTP := TIdHTTP.Create(nil);
   Response := TStringStream.Create;
   try
-    IdHTTP.IOHandler := TIdSSLIOHandlerSocketOpenSSL.Create(IdHTTP);
-    TIdSSLIOHandlerSocketOpenSSL(IdHTTP.IOHandler).SSLOptions.SSLVersions := [sslvTLSv1_2];
+    try
+      IdHTTP.IOHandler := TIdSSLIOHandlerSocketOpenSSL.Create(IdHTTP);
+      TIdSSLIOHandlerSocketOpenSSL(IdHTTP.IOHandler).SSLOptions.SSLVersions := [sslvTLSv1_2];
 
-    MmoLog.Lines.Add('Efetuando request no WS...');
-    if tipoConsulta = tcCep then
-    begin
-      IdHTTP.Request.ContentType := 'application/json';
-      Response.WriteString(IdHTTP.Get('https://viacep.com.br/ws/' + cep + '/json'));
-    end
-    else if tipoConsulta = tcEndereco then
-    begin
-      IdHTTP.Request.ContentType := 'application/json';
-      Response.WriteString(IdHTTP.Get('https://viacep.com.br/ws/' + Uf + '/' +
-           removerAcentuacao(Localidade) + '/' + removerAcentuacao(Logradouro) + '/json'));
+      MmoLog.Lines.Add('Efetuando request no WS...');
+      if tipoConsulta = tcCep then
+      begin
+        IdHTTP.Request.ContentType := 'application/json';
+        Response.WriteString(IdHTTP.Get('https://viacep.com.br/ws/' + cep + '/json'));
+      end
+      else if tipoConsulta = tcEndereco then
+      begin
+        IdHTTP.Request.ContentType := 'application/json';
+        Response.WriteString(IdHTTP.Get('https://viacep.com.br/ws/' + Uf + '/' +
+             removerAcentuacao(Localidade) + '/' + removerAcentuacao(Logradouro) + '/json'));
+      end;
+
+      if IdHTTP.ResponseCode = 200 then
+      begin
+        MmoLog.Lines.Add('Dados encontrados no WS...');
+        JsonString :=  fRemoveColchetes(Response.DataString);
+
+        MmoLog.Lines.Add('Desserialização Json: ');
+        RetornoJson := TJSONObject.ParseJSONValue(JsonString) as TJSONObject;
+
+        if Assigned(RetornoJson) then
+        begin
+          if RetornoJson.GetValue('erro').Value = 'true' then
+            raise Exception.Create('CEP ou Endereço inexistente!')
+        end
+        else raise Exception.Create('Erro ao desserializar JSON');
+
+        MmoLog.Lines.Add(Response.DataString);
+
+        Result := RetornoJson;
+      end
+      else
+        raise Exception.Create('CEP ou Endereço inexistente!');
+    except
+      on E: Exception do
+      begin
+        // Trate a exceção aqui
+        raise Exception.Create('Ocorreu um erro ao consultar o ViaCEP: ' + E.Message);
+      end;
     end;
-
-    if IdHTTP.ResponseCode = 200 then
-    begin
-      MmoLog.Lines.Add('Dados encontrados no WS...');
-      JsonString :=  fRemoveColchetes(Response.DataString);
-
-      MmoLog.Lines.Add('Desserialização Json: ');
-      RetornoJson := TJSONObject.ParseJSONValue(JsonString) as TJSONObject;
-      if not Assigned(RetornoJson) then
-        raise Exception.Create('Erro ao desserializar JSON');
-
-      MmoLog.Lines.Add(Response.DataString);
-
-      Result := RetornoJson;
-    end
-    else
-      raise Exception.Create('CEP inexistente!');
-  except
-    on E: Exception do
-    begin
-      // Trate a exceção aqui
-      raise Exception.Create('Ocorreu um erro de soquete: ' + E.Message);
-    end;
+  finally
+    IdHTTP.Free;
+    Response.Free;
   end;
 end;
 

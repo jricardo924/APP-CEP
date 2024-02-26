@@ -157,9 +157,12 @@ begin
         if Assigned(RetornoJson) then
         begin
           if RetornoJson.GetValue('erro').Value = 'true' then
-            raise Exception.Create('CEP ou Endereço inexistente!')
+            raise Exception.Create('CEP ou Endereço inexistente!');
         end
-        else raise Exception.Create('CEP ou Endereço inexistente!');
+        else
+        begin
+          raise Exception.Create('Erro ao desserializar JSON');
+        end;
 
         MmoLog.Lines.Add(Response.DataString);
 
@@ -170,7 +173,7 @@ begin
     except
       on E: Exception do
       begin
-        MmoLog.Lines.Add('Ocorreu um erro ao consultar o ViaCEP: ' + E.Message);
+        // Trate a exceção aqui
         raise Exception.Create('Ocorreu um erro ao consultar o ViaCEP: ' + E.Message);
       end;
     end;
