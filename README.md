@@ -25,7 +25,7 @@ A aplicação opera com base em requisições por CEP ou endereço para um Web S
   
 ## MongoDB
 - MongoDB 5.0.25 2008R2Plus SSL (64 bit)
-- MongoDB Compass
+- MongoDB Compass (Collection: local.cadastroceps)
 
 # Arquitetura utilizada
 
