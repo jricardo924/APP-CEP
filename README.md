@@ -105,15 +105,16 @@ Pré-requisitos: Delphi Tokyo
 ```bash
 # clonar repositório
 git clone https://github.com/jricardo924/APP-CEP
+Clone para diretorio C:\
 
 # entrar na pasta do projeto
-cd C:\Teste_Softplan\Sistema CEP WS
+cd C:\APP-CEP-main.zip\APP-CEP-main
 
 # executar o projeto
-Abrir executavel na pasta C:\Teste_Softplan\Sistema CEP WS\Win32\Debug\App_Consulta_Cep_WS.exe
+Abrir executavel na pasta C:\APP-CEP-main.zip\APP-CEP-main\Win32\Debug\App_Consulta_Cep_WS.exe
 
 # Instalação de componente EdtFocus
-Abrir o Project >> arquivo: C:\Teste_Softplan\Sistema CEP WS\Novo_Componente\EditFocus\CEditFocus.dproj
+Abrir o Project >> arquivo: C:\APP-CEP-main.zip\APP-CEP-main\Novo_Componente\EditFocus\CEditFocus.dproj
 Compilar o componente
 Instalar o componente
 ```
