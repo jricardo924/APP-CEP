@@ -3,7 +3,7 @@
 
 # Sobre o projeto
 
-O App-Cep é uma aplicação desenvolvida em Delphi Tokyo que visa demonstrar métodos e experiências profissionais relevantes para seleção de emprego em uma grande empresa da área de software.
+O App-Cep é uma aplicação desenvolvida em Delphi Tokyo que visa demonstrar métodos, capacidade técnica e analítica para seleção de emprego em uma grande empresa da área de software.
 
 A aplicação opera com base em requisições por CEP ou endereço para um Web Service público (https://viacep.com.br). Após enviar a solicitação, o serviço retorna um JSON, que é convertido em uma string e enviado para uma fila no RabbitMQ. Este sistema gerencia a ordem de processamento e disponibiliza os dados em outra fila, também no RabbitMQ. Após a liberação, os dados são armazenados no banco de dados MongoDB e a consulta é atualizada para o aplicativo de consulta.
 
